@@ -8,8 +8,8 @@ pkgdesc="RKNN LLM demo"
 url="https://github.com/Pelochus/ezrknn-llm/"
 license=('custom')
 depends=('gcc' 'cmake' 'make' 'rkllm_api')
-source=(git+https://github.com/Pelochus/"$pkgname" "CMakeLists.txt")
-sha256sums=('SKIP' 'SKIP')
+source=(git+https://github.com/Pelochus/"$pkgname" "CMakeLists.txt" "LICENSE")
+sha256sums=('SKIP' 'SKIP' 'SKIP')
 
 pkgver() {
     cd "$srcdir/$pkgname"
@@ -35,6 +35,7 @@ build() {
 
 package() {
     cd "$srcdir/$pkgname"
-    mkdir -p "$pkgdir/usr/bin"
+    mkdir -p "$pkgdir/usr/bin" "$pkgdir/usr/share/licenses/$pkgname"
     install -Dm755 rkllm-runtime/examples/rkllm_api_demo/build/llm_demo "$pkgdir/usr/bin/rkllm"
+    install -Dm644 "$srcdir/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
